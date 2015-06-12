@@ -107,6 +107,42 @@ func TestFindReplaceWithUnreadableFile(t *testing.T) {
 	}
 }
 
+func TestFindReplaceWithUnwritableFile(t *testing.T) {
+	testConfig := `[
+	  {
+	    "path"     : "%s",
+	    "patterns" : [
+	      {
+	        "find"    : "was",
+	        "replace" : "am"
+	      }
+	    ]
+	  }
+	]`
+
+	f, err := ioutil.TempFile("", "file1")
+	if err != nil { t.Fatal("failed to create test file") }
+	defer syscall.Unlink(f.Name())
+	ioutil.WriteFile(f.Name(), []byte(fmt.Sprintf(testConfig, f.Name())), 0)
+
+	config, confErr := GetConfig(fmt.Sprintf(testConfig, f.Name()))
+	if confErr != nil {
+		t.Errorf("expected to be able to get config :: got error '%s'", confErr.Error())
+	}
+
+	f.Chmod(0400)
+
+	fiReErr := FindReplace(config)
+
+	if fiReErr == nil {
+		t.Errorf("expected error 'failed to write file %s' :: got nil", f.Name())
+	}
+
+	if fiReErr != nil && fiReErr.Error() != fmt.Sprintf("failed to write file %s", f.Name()) {
+		t.Errorf("expected error 'failed to write file %s' :: got error '%s'", f.Name(), fiReErr.Error())
+	}
+}
+
 func TestFindReplaceForSuccess(t *testing.T) {
 
 	expected := "i am groot"
