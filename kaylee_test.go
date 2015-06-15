@@ -145,12 +145,13 @@ func TestFindReplaceWithUnwritableFile(t *testing.T) {
 
 func TestFindReplaceForSuccess(t *testing.T) {
 
-	expected := "i am groot"
+	input          := "i was groot"
+	expectedOutput := "i am groot"
 
 	f, err := ioutil.TempFile("", "file1")
 	if err != nil { t.Fatal("failed to create test file") }
 	defer syscall.Unlink(f.Name())
-	ioutil.WriteFile(f.Name(), []byte(expected), 0)
+	ioutil.WriteFile(f.Name(), []byte(input), 0)
 
 	testConfig := `[
 	  {
@@ -174,25 +175,15 @@ func TestFindReplaceForSuccess(t *testing.T) {
 		t.Errorf("expected to succesffully configure file :: got error '%s'", fiReErr.Error())
 	}
 
-	recieved, readErr := ioutil.ReadFile(f.Name())
+	recievedOutput, readErr := ioutil.ReadFile(f.Name())
 	if readErr != nil {
 		t.Errorf("failed to reaed file %s", f.Name())
 	}
 
-	recievedString := string(recieved)
+	recievedOutputString := string(recievedOutput)
 
-	if recievedString != expected {
-		t.Errorf("expected '%s' :: got '%s'", expected, recievedString)
+	if recievedOutputString != expectedOutput {
+		t.Errorf("expected '%s' :: got '%s'", expectedOutput, recievedOutputString)
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
