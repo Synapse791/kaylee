@@ -25,9 +25,9 @@ func FindReplace(config KayleeConfig) error {
 
 		newContents := string(data)
 
-		for _, p := range file.Patterns {
-			LogVerbose(fmt.Sprintf("replacing '%s' with '%s' in %s", p.Find, p.Replace, file.Path))
-			newContents = strings.Replace(newContents, p.Find, p.Replace, -1)
+		for find, replace := range file.Patterns {
+			LogVerbose(fmt.Sprintf("replacing '%s' with '%s' in %s", find, replace, file.Path))
+			newContents = strings.Replace(newContents, find, replace, -1)
 		}
 
 		LogVerbose(fmt.Sprintf("writing file %s", file.Path))

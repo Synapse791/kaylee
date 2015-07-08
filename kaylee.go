@@ -56,25 +56,16 @@ func PrintExample() {
 	example := `[
   {
     "path"     : "/tmp/file1",
-    "patterns" : [
-      {
-        "find"    : "FINDME1",
-        "replace" : "am"
+    "patterns" : {
+        "replace_me" : "with_me",
+        "password"   : "letmein"
       },
-      {
-        "find"    : "FINDME2",
-        "replace" : "password"
-      }
-    ]
   },
   {
     "path"     : "/tmp/file2",
-    "patterns" : [
-      {
-        "find"    : "FINDME1",
-        "replace" : "put me in the file"
-      }
-    ]
+    "patterns" : {
+        "FINDME1" : "put me in the file"
+    }
   }
 ]`
 

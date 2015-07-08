@@ -10,13 +10,8 @@ type KayleeConfig struct {
 }
 
 type FileConfig struct {
-	Path        string          `json:"path"`
-	Patterns    []PatternSet    `json:"patterns"`
-}
-
-type PatternSet struct {
-	Find    string  `json:"find"`
-	Replace string  `json:"replace"`
+	Path        string          	`json:"path"`
+	Patterns    map[string]string   `json:"patterns"`
 }
 
 func GetConfig(conf string) (KayleeConfig, error) {

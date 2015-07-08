@@ -12,12 +12,9 @@ func TestGetConfigWithValidJson(t *testing.T) {
 	testConfig := `[
 	  {
 	    "path"     : "/tmp/file",
-	    "patterns" : [
-	      {
-	        "find"    : "1",
-	        "replace" : "2"
-	      }
-	    ]
+	    "patterns" : {
+	        "1" : "2"
+	    }
 	  }
 	]`
 
@@ -46,12 +43,9 @@ func TestFindReplaceWithNonexistentFile(t *testing.T) {
 	testConfig := `[
 	  {
 	    "path"     : "not_exist",
-	    "patterns" : [
-	      {
-	        "find"    : "was",
-	        "replace" : "am"
-	      }
-	    ]
+	    "patterns" : {
+	        "was" : "am"
+	    }
 	  }
 	]`
 
@@ -80,12 +74,9 @@ func TestFindReplaceWithUnreadableFile(t *testing.T) {
 	testConfig := `[
 	  {
 	    "path"     : "%s",
-	    "patterns" : [
-	      {
-	        "find"    : "was",
-	        "replace" : "am"
-	      }
-	    ]
+	    "patterns" : {
+	        "was"    : "am"
+	    }
 	  }
 	]`
 
@@ -111,12 +102,9 @@ func TestFindReplaceWithUnwritableFile(t *testing.T) {
 	testConfig := `[
 	  {
 	    "path"     : "%s",
-	    "patterns" : [
-	      {
-	        "find"    : "was",
-	        "replace" : "am"
-	      }
-	    ]
+	    "patterns" : {
+	        "was" : "am"
+	    }
 	  }
 	]`
 
@@ -156,12 +144,9 @@ func TestFindReplaceForSuccess(t *testing.T) {
 	testConfig := `[
 	  {
 	    "path"     : "%s",
-	    "patterns" : [
-	      {
-	        "find"    : "was",
-	        "replace" : "am"
-	      }
-	    ]
+	    "patterns" : {
+	        "was" : "am"
+	    }
 	  }
 	]`
 
