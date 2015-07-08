@@ -59,7 +59,7 @@ func PrintExample() {
     "patterns" : {
         "replace_me" : "with_me",
         "password"   : "letmein"
-      },
+    }
   },
   {
     "path"     : "/tmp/file2",
