@@ -131,6 +131,34 @@ func TestFindReplaceWithUnwritableFile(t *testing.T) {
 	}
 }
 
+func TestFindReplaceWithMissingFind(t *testing.T) {
+	input          := "i was groot"
+
+	f, err := ioutil.TempFile("", "file1")
+	if err != nil { t.Fatal("failed to create test file") }
+	defer syscall.Unlink(f.Name())
+	ioutil.WriteFile(f.Name(), []byte(input), 0)
+
+	testConfig := `[
+	  {
+	    "path"     : "%s",
+	    "patterns" : {
+	        "test" : "should fail"
+	    }
+	  }
+	]`
+
+	config, confErr := GetConfig(fmt.Sprintf(testConfig, f.Name()))
+	if confErr != nil {
+		t.Errorf("expected to be able to get config :: got error '%s'", confErr.Error())
+	}
+
+	fiReErr := FindReplace(config)
+	if fiReErr == nil {
+		t.Errorf("expected failure :: got success", fiReErr.Error())
+	}
+}
+
 func TestFindReplaceForSuccess(t *testing.T) {
 
 	input          := "i was groot"
