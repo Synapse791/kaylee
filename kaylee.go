@@ -45,9 +45,9 @@ func PrintUsage() {
   Pass in a JSON string to specify a group of files. Each of these files has a group of find and replace values.
   Kaylee runs through these groups and replaces the find strings with the replace strings, then moves onto the next file.
 
-`
+Usage:`
 
-	fmt.Print(helpText)
+	fmt.Println(helpText)
 	flag.PrintDefaults()
 	os.Exit(0)
 }
