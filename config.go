@@ -20,6 +20,7 @@ func GetConfig(conf string) (KayleeConfig, error) {
 
 	err := json.Unmarshal([]byte(conf), &files)
 	if err != nil {
+		LogVerbose(err.Error())
 		return config, fmt.Errorf("invalid JSON")
 	}
 
