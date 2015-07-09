@@ -89,7 +89,10 @@ func PrintExample() {
 
 }
 
-func LogError(err string) {
+func LogError(err string, args... interface{}) {
+    if len(args) > 0 {
+        err = fmt.Sprintf(err, args...)
+    }
 	fmt.Fprintf(os.Stderr, "\033[01;31mKAYLE_ERROR: %s\033[00;00m\n", err)
 	os.Exit(1)
 }
