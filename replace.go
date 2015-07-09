@@ -16,7 +16,7 @@ func FindReplace(config KayleeConfig) error {
 	}
 
 	for _, file := range config.Files {
-		LogVerbose(fmt.Sprintf("configuring %s", file.Path))
+		LogVerbose("configuring %s", file.Path)
 
 		data, err := ioutil.ReadFile(file.Path)
 		if err != nil {
@@ -26,17 +26,22 @@ func FindReplace(config KayleeConfig) error {
 		newContents := string(data)
 
 		for find, replace := range file.Patterns {
-			LogVerbose(fmt.Sprintf("replacing '%s' with '%s' in %s", find, replace, file.Path))
-			newContents = strings.Replace(newContents, find, replace, -1)
+			if strings.Contains(newContents, find) {
+				LogVerbose("replacing '%s' with '%s' in %s", find, replace, file.Path)
+				newContents = strings.Replace(newContents, find, replace, -1)
+			} else {
+				LogError("'%s' not found in '%s'", find, file.Path)
+			}
+
 		}
 
-		LogVerbose(fmt.Sprintf("writing file %s", file.Path))
+		LogVerbose("writing file %s", file.Path)
 		err = ioutil.WriteFile(file.Path, []byte(newContents), 0)
 		if err != nil {
 			return fmt.Errorf("failed to write file %s", file.Path)
 		}
 
-		LogVerbose(fmt.Sprintf("successfully configured %s", file.Path))
+		LogVerbose("successfully configured %s", file.Path)
 
 	}
 
