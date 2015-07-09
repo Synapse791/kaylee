@@ -11,6 +11,7 @@ func FindReplace(config KayleeConfig) error {
 
 	for _, file := range config.Files {
 		if _, err := os.Stat(file.Path); os.IsNotExist(err) {
+            LogVerbose(err.Error())
 			return fmt.Errorf("file %s does not exist", file.Path)
 		}
 	}
@@ -20,6 +21,7 @@ func FindReplace(config KayleeConfig) error {
 
 		data, err := ioutil.ReadFile(file.Path)
 		if err != nil {
+            LogVerbose(err.Error())
 			return fmt.Errorf("failed to read file %s", file.Path)
 		}
 
@@ -38,7 +40,7 @@ func FindReplace(config KayleeConfig) error {
 		LogVerbose("writing file %s", file.Path)
 		err = ioutil.WriteFile(file.Path, []byte(newContents), 0)
 		if err != nil {
-
+            LogVerbose(err.Error())
 			return fmt.Errorf("failed to write file %s", file.Path)
 		}
 
