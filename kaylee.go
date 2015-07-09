@@ -99,8 +99,11 @@ func LogError(err string, args... interface{}) {
 	os.Exit(1)
 }
 
-func LogVerbose(line string) {
+func LogVerbose(line string, args... interface{}) {
 	if verbose == true {
+        if len(args) > 0 {
+            line = fmt.Sprintf(line, args...)
+        }
 		fmt.Printf("verbose: %s\n", line)
 	}
 }
