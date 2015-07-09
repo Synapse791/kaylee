@@ -30,7 +30,7 @@ func FindReplace(config KayleeConfig) error {
 				LogVerbose("replacing '%s' with '%s' in %s", find, replace, file.Path)
 				newContents = strings.Replace(newContents, find, replace, -1)
 			} else {
-				LogError("'%s' not found in '%s'", find, file.Path)
+				return fmt.Errorf("'%s' not found in '%s'", find, file.Path)
 			}
 
 		}
@@ -38,6 +38,7 @@ func FindReplace(config KayleeConfig) error {
 		LogVerbose("writing file %s", file.Path)
 		err = ioutil.WriteFile(file.Path, []byte(newContents), 0)
 		if err != nil {
+
 			return fmt.Errorf("failed to write file %s", file.Path)
 		}
 
