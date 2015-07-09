@@ -40,6 +40,8 @@ func main() {
         PrintUsage()
     }
 
+    LogVerbose("verbose mode enabled")
+
     config, err := GetConfig(configString)
 	if err != nil {
 		LogError(err.Error())
