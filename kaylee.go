@@ -33,9 +33,14 @@ func main() {
 
 	if printExample { PrintExample() }
 
-	if printUsage || configString == "not_set" { PrintUsage() }
+	if printUsage { PrintUsage() }
 
-	config, err := GetConfig(configString)
+    if configString == "not_set" {
+        LogError("config [-c|-config] flag is required")
+        PrintUsage()
+    }
+
+    config, err := GetConfig(configString)
 	if err != nil {
 		LogError(err.Error())
 	}
