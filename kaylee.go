@@ -75,7 +75,7 @@ func PrintExample() {
 }
 
 func LogError(err string) {
-	fmt.Fprintf(os.Stderr, "ERROR: %s\n", err)
+	fmt.Fprintf(os.Stderr, "\033[01;31mKAYLE_ERROR: %s\033[00;00m\n", err)
 	os.Exit(1)
 }
 
